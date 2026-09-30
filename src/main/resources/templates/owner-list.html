@@ -32,7 +32,13 @@
             <tr th:each="a : ${apartments}">
                 <td th:text="${a.id}"></td>
                 <td th:text="${a.title}"></td>
-                <td th:text="${a.city}"></td>
+				<td>
+				    <span th:text="${a.city}"></span>
+				    <span th:switch="${a.city}">
+				        <th:block th:case="'Київ'"> (столиця)</th:block>
+				        <th:block th:case="'Львів'"> (захід)</th:block>
+				    </span>
+				</td>
                 <td th:text="${a.rooms}"></td>
                 <td th:text="${a.area} + ' м²'"></td>
                 <td th:text="${@priceFormatter.format(a.price)}"></td>

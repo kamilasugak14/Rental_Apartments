@@ -49,6 +49,10 @@
             </div>
         </div>
     </form>
+	<div class="actions" style="margin-bottom:20px">
+	    <a class="btn btn-secondary btn-small" th:each="n : ${#numbers.sequence(1, 3)}"
+	       th:href="@{/apartments(rooms=${n})}" th:text="${n} + ' кімн.'">1 кімн.</a>
+	</div>
 
     <p class="results-info" th:unless="${#lists.isEmpty(apartments)}"
        th:text="'Знайдено: ' + ${#lists.size(apartments)}"></p>
@@ -61,8 +65,14 @@
                 <span class="tag" th:text="${a.city}">Київ</span>
                 <span class="tag" th:text="${a.rooms} + ' кімн.'">2 кімн.</span>
                 <span class="tag" th:text="${a.area} + ' м²'">50 м²</span>
+				<span class="tag" th:switch="${a.rooms}">
+				    <th:block th:case="1">Компактна</th:block>
+				    <th:block th:case="2">Для пари</th:block>
+				    <th:block th:case="3">Для родини</th:block>
+				    <th:block th:case="*">Великий простір</th:block>
+				</span>
             </div>
-            <p class="desc" th:text="${a.description}">Опис</p>
+			<p class="desc" th:text="${#strings.isEmpty(a.description) ? null : a.description} ?: 'Опис відсутній'">Опис</p>
         </article>
     </div>
 
